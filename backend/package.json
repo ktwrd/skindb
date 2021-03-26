@@ -1,0 +1,18 @@
+{
+  "name": "skindb_backend",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node .",
+    "start": "node server.js"
+  },
+  "author": "Jyles Coad-Ward [jyles@dariox.club]",
+  "license": "LGPL-3.0",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "http": "0.0.1-security",
+    "node-fetch": "^2.6.1",
+    "tinytoolbox": "0.0.7"
+  }
+}
