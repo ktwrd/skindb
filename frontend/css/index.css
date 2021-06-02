@@ -1,0 +1,25 @@
+@import url("navbar.css");
+
+@import "colorScheme/default.css";
+@import "colorScheme/_palette.css";
+
+@import "account.css";
+@import "dropsheet.css";
+
+body {
+	font-family: "Open Sans", sans-serif;
+}
+a {
+	color: var(--PAL_BLUE-300);
+	transition: 100ms;
+}
+a:hover {
+	color: var(--PAL_BLUE-600);
+	transition: 100ms;
+}
+div.container {
+	position:relative;
+	top: 60px;
+	width: 90%;
+	margin: auto;
+}

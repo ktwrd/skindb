@@ -1,0 +1,35 @@
+.page_Account.BasicInformationCard
+{
+	--width: 280px;
+	width: var(--width);
+	float:right;
+	border-radius: 10px;
+	background-color: var(--PAL_GRAY-800);
+}
+.page_Account.BasicInformationCard .CenterAlign
+{
+	text-align: center;
+}
+
+.page_Account.BasicInformationCard li,
+.page_Account.BasicInformationCard ul
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font-size: 18pt;
+}
+.page_Account.BasicInformationCard li table
+{
+	font-size: 12pt;
+	width: calc(var(--var) - 8px);
+	margin-left: 4px;
+	margin-right: 4px;
+}
+.page_Account.BasicInformationCard img.ProfilePicture
+{
+	border-radius: 15px;
+	width: calc(var(--width) - 16px);
+	margin: 8px;
+	height: calc(var(--width) - 16px);
+}

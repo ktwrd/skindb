@@ -1,0 +1,51 @@
+div.navigationbar {
+	position: fixed;
+	top: 15px;
+	left: 5vw;
+
+	width: 90vw;
+	height: 40px;
+}
+div.navigationbar ul {
+	padding: 0;
+
+	margin: 0;
+}
+div.navigationbar ul li {
+	display: inline;
+
+	list-style: none;
+
+	font-size: 16pt;
+	padding: 2px 6px;
+
+	transition: 100ms;
+
+	border-radius: 4px;
+
+	float: left;
+
+	cursor: default;
+}
+div.navigationbar ul li[action=link] {
+	
+	margin-left: 2.5pt;
+	float: right;
+	animation: 100ms hoverTiltReverse forwards;
+}
+div.navigationbar ul li[action=link]:hover {
+	cursor: pointer;
+	animation: 300ms hoverTilt forwards;
+	transition: 100ms;
+}
+
+@keyframes hoverTilt
+{
+	0% { transform: rotate(0deg) scale(1); }
+	100% { transform: rotate(5deg) scale(1.2); }
+}
+@keyframes hoverTiltReverse
+{
+	100% { transform: rotate(0deg) scale(1); }
+	0% { transform: rotate(5deg) scale(1.2); }
+}
