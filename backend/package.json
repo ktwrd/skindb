@@ -11,6 +11,8 @@
   "license": "LGPL-3.0",
   "dependencies": {
     "axios": "^0.21.1",
+    "crypto": "^1.0.1",
+    "firebase-admin": "^9.5.0",
     "http": "0.0.1-security",
     "node-fetch": "^2.6.1",
     "tinytoolbox": "0.0.7"
