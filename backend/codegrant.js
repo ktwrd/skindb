@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const toolbox = require("tinytoolbox")
 var serverSecrets = require("./../secret.json");
 
 // http://api.dxcdn.net/osu/skindb/codegrant?code={{code}}
@@ -20,27 +21,32 @@ module.exports.handle = async (request,response) => {
 		"client_id": serverSecrets.client_id,
 		"client_secret": serverSecrets.client_secret,
 		"code": urlParams.get("code"),
-		"redirect_uri": `http://api.dxcdn.net/osu/skindb/codegrant`,
+		"redirect_uri": `http://skindb.jyles.club/codegrant`,
 	}
+
+	sendData = await JSON.stringify(sendData);
 	var fetchResponse = await fetch("https://osu.ppy.sh/oauth/token",{
-		//url: "https://osu.ppy.sh/oauth/token",
 		method: "post",
 		headers: {
 			"Accept": "application/json",
 			"Content-Type": "application/json",
 		},
-		body: await JSON.stringify(sendData),
-		//data: sendData,
+		body: sendData,
 	})
 	var headers = {};
-	await fetchResponse.headers.forEach((headerData,headerName)=>{
-		if (headerName == "content-encoding") return;
-		headers[headerName] = headerData;
+	await toolbox.async.forEach(fetchResponse.headers,(headerData,headerName)=>{
+		if (headerName != "content-encoding" || headerName != "access-control-allow-origin") {
+			headers[headerName] = headerData;
+		}
 	})
-	await response.writeHead(fetchResponse.status || 200,headers);
-	var responseData = await fetchResponse.json()
-	await response.write(JSON.stringify(responseData,null,'\t'));
-	response.end();
+	headers["Access-Control-Allow-Origin"] = "*"
+	headers["Content-Type"] = headers["content-type"] || "application/json"
+	await response.writeHead(200,headers);
+	var responseData = await fetchResponse.json();
+	await response.write(JSON.stringify(responseData));
+	setTimeout(()=>{
+		response.end();
+	},500)
 	return;
 }
 

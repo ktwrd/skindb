@@ -1,5 +1,5 @@
 module.exports = {
 	secret: require("./../secret.json"),
 	port: 38084,
-	address: "http://api.dxcdn.net/osu/skindb"
+	address: "http://skindb.jyles.club/api/v2/skindb"
 }
