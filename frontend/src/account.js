@@ -1,54 +1,89 @@
 module.exports.html = () => {
 	return `
-<div class="page_Account BasicInformationCard">
-	<ul>
-		<li data="avatar_url" action="dynamic"  type="profileImage" data="avatar_url">
-			<img src="https://via.placeholder.com/300" class="ProfilePicture" />
-		</li>
-		<li class="CenterAlign" action="dynamic"  type="profileLink" data="username" link="id">
-			
-		</li>
-		<li class="CenterAlign" action="dynamic" data="statistics.pp" type="bigNumber" suffix="pp">
-			
-		</li>
-		<li class="ProfileInformation">
-			<table>
-				<tr>
-					<th>Playtime</th>
-					<td action="dynamic" type="hourminFormat" data="statistics.play_time"></td>
-				</tr>
-				<tr>
-					<th>Country Rank</th>
-					<td action="dynamic" type="bigNumber" data="statistics.country_rank" prefix="#"></td>
-				</tr>
-				<tr>
-					<th>Global Rank</th>
-					<td action="dynamic" type="bigNumber" data="statistics.global_rank" prefix="#"></td>
-				</tr>
-				<tr>
-					<th>Ranked Score</th>
-					<td action="dynamic" type="bigNumber" data="statistics.ranked_score"></td>
-				</tr>
-				<tr>
-					<th>Accuracy</th>
-					<td action="dynamic" type="percentage" data="statistics.hit_accuracy"></td>
-				</tr>
-				<tr>
-					<th>Play Count</th>
-					<td action="dynamic" type="bigNumber" data="statistics.play_count"></td>
-				</tr>
-				<tr>
-					<th>Total Score</th>
-					<td action="dynamic" type="bigNumber" data="statistics.total_score"></td>
-				</tr>
-				<tr>
-					<th>Highest Combo</th>
-					<td action="dynamic" type="bigNumber" data="statistics.maximum_combo"></td>
-				</tr>
-			</table>
-		</li>
-	</ul>
-</div>`;
+<table>
+	<tr>
+		<!-- Main Body -->
+		<td>
+			<div class="page_Account Body">
+				<div class="Account Section">
+					<h1 class="Account SectionHeader">Recent Activity</h1>
+					<table class="Account RecentActivity">
+						<tbody>
+							<tr>
+								<th action="Label">activity.label</th>
+								<td action="Description">activity.description</td>
+								<td action="CreatedAt">humanTimeFormat(activity.createdAt)</td>
+							</tr>
+							<tr>
+								<th action="Label">activity.label</th>
+								<td action="Description">activity.description</td>
+								<td action="CreatedAt">humanTimeFormat(activity.createdAt)</td>
+							</tr>
+							<tr>
+								<th action="Label">activity.label</th>
+								<td action="Description">activity.description</td>
+								<td action="CreatedAt">humanTimeFormat(activity.createdAt)</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</td>
+
+		<!-- Additional Details (e.g, profile card, etc...) -->
+		<td>
+			<div class="page_Account BasicInformationCard">
+				<ul>
+					<li data="avatar_url" action="dynamic"  type="profileImage" data="avatar_url">
+						<img src="assets/loading_profile-min.png" class="ProfilePicture" />
+					</li>
+					<li class="CenterAlign" action="dynamic"  type="profileLink" data="username" link="id">
+						
+					</li>
+					<li class="CenterAlign" action="dynamic" data="statistics.pp" type="bigNumber" suffix="pp">
+						
+					</li>
+					<li class="ProfileInformation">
+						<table>
+							<tr>
+								<th>Playtime</th>
+								<td action="dynamic" type="hourminFormat" data="statistics.play_time"></td>
+							</tr>
+							<tr>
+								<th>Country Rank</th>
+								<td action="dynamic" type="bigNumber" data="statistics.country_rank" prefix="#"></td>
+							</tr>
+							<tr>
+								<th>Global Rank</th>
+								<td action="dynamic" type="bigNumber" data="statistics.global_rank" prefix="#"></td>
+							</tr>
+							<tr>
+								<th>Ranked Score</th>
+								<td action="dynamic" type="bigNumber" data="statistics.ranked_score"></td>
+							</tr>
+							<tr>
+								<th>Accuracy</th>
+								<td action="dynamic" type="percentage" data="statistics.hit_accuracy"></td>
+							</tr>
+							<tr>
+								<th>Play Count</th>
+								<td action="dynamic" type="bigNumber" data="statistics.play_count"></td>
+							</tr>
+							<tr>
+								<th>Total Score</th>
+								<td action="dynamic" type="bigNumber" data="statistics.total_score"></td>
+							</tr>
+							<tr>
+								<th>Highest Combo</th>
+								<td action="dynamic" type="bigNumber" data="statistics.maximum_combo"></td>
+							</tr>
+						</table>
+					</li>
+				</ul>
+			</div>
+		</td>
+	</tr>
+</table>`;
 }
 
 module.exports.listen = () => {
@@ -74,7 +109,6 @@ module.exports.SetDynamicValues = (AccountData) =>
 		let Suffix = DynamicObject.attributes.suffix == undefined ? "": DynamicObject.attributes.suffix.value;
 		let Link   = DynamicObject.attributes.link == undefined   ? "": DynamicObject.attributes.link.value;
 		if (Data === "DONOTPROCESS") return;
-		console.log(Type,Data,Prefix,Suffix);
 		switch (Type.toLowerCase())
 		{
 			case "text":
@@ -116,4 +150,5 @@ module.exports.SetDynamicValues = (AccountData) =>
 				break;
 		}
 	})
+	console.log("[page -> account -> listener -> SetDynamicValues] Populated Profile Data",AccountData);
 }

@@ -1,3 +1,32 @@
+
+
+/* Profile Table Container */
+div.container table tbody tr td,
+div.container table tbody tr th
+{
+	/* Align content to top of table */
+	vertical-align: top;
+	padding: 0;
+	margin: 0;
+}
+
+div.container table .page_Account.Body
+{
+	--page_Account-body-width: calc(100vw - 10vw - 280px - 20px);
+	padding-left: 20px;
+	padding-right: 20px;
+	width: var(--page_Account-body-width);
+}
+div.container table .page_Account.Body .SectionHeader
+{
+	border-top: 1px dashed var(--PAL_GRAY-700);
+	max-width: 50vw;
+	padding: 15px;
+	margin: 0;
+	margin-top: 30px;
+}
+
+/* Profile Information Card */
 .page_Account.BasicInformationCard
 {
 	--width: 280px;
