@@ -3,7 +3,7 @@ module.exports = {
 	osu: {
 		validateKey: (gToken) => {
 			gToken = gToken || localStorage.oauth_access_token;
-			return new Promise((resolve)=>{
+			return new Promise((resolve,reject)=>{
 				console.log(`[remoteConnections -> osu.validateKey] Sent request to backend.`)
 				axios({
 					url: `${skindb.backendServer}/validate?token=${gToken}`,
@@ -13,11 +13,11 @@ module.exports = {
 					}
 				}).then((res)=>{
 					if (res.status === 200) {	
-						global.skindb.usercache = res.data
+						global.skindb.usercache = res.data;
 					}
-					console.log(res.data)
+					console.log("[remoteConnection -> osu.validateKey] Recieved Data",res.data);
 					resolve(res.data);
-				})
+				}).catch(reject)
 			})
 		}
 	},
