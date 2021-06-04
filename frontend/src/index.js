@@ -47,14 +47,31 @@ global.skindb = {
 
 global.skindb.backendServer = skindb.isURL(localStorage.custom_backendLocation) ? localStorage.custom_backendLocation : "http://skindb.jyles.club/api/v2/skindb";
 
-if (localStorage.oauth_access_token !== undefined && localStorage.oauth_expire_timestamp - Math.round(Date.now()/1000) > 1) {
+if (localStorage.oauth_access_token !== undefined && (localStorage.oauth_expire_timestamp || 0) - Math.round(Date.now()/1000) > 1) {
 	localStorage.oauth_cache_valid = "unknown";
 	skindb.dropsheet.title("Validating Account");
 	global.skindb.validateCallback = skindb.remote.osu.validateKey();
 	skindb.validateCallback.then((status)=>{
-		localStorage.oauth_cache_valid = JSON.stringify(status);
-		skindb.dropsheet.hide();
+		setTimeout(()=>{
+			localStorage.oauth_cache_valid = JSON.stringify(status);
+			skindb.dropsheet.hide();
+			$("div.navigationbar li[action=link] a[action=oauth]").parent().hide();
+		},200)
 	});
+	skindb.validateCallback.catch((error)=>{
+		skindb.dropsheet.title("An Error Occurred.");
+		console.log(error);
+	})
+} else if (localStorage.oauth_access_token != undefined && (localStorage.oauth_expire_timestamp || 0) - Math.round(Date.now()/1000) < 1) {
+	// Send user to reconnect their account
+	skindb.dropsheet.title("Redirecting to re-connect account");
+	setTimeout(()=>{
+		window.location.replace("oauth.html");
+	},2000);
+} else {
+	$("div.navigationbar li[action=link] a[action=account]").parent().hide()
+	$("div.navigationbar li[action=link] a[action=upload]").parent().hide()
+	skindb.dropsheet.hide();
 }
 
 var validPages = [
@@ -76,7 +93,8 @@ Object.entries(skindb.parameters()).forEach((parameter)=>{
 
 console.log("Current Page -> '"+selectedPage+"'");
 
-$("div.container").html(require(`./${selectedPage}.js`).html())
-setTimeout(()=>{
-	require(`./${selectedPage}.js`).listen()
-},1500)
+if (global.skindb.validateCallback != undefined)
+{	// Only do page if it's a valid login
+	global.skindb.validateCallback.then(d => require(`./${selectedPage}.js`).listen(d));
+	$("div.container").html(require(`./${selectedPage}.js`).html());
+}
