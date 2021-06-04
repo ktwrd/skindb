@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 module.exports.handle = async (request,response) => {
 	const urlParams = new URLSearchParams(request.url.replace(module.exports.manifest.location,""));
-	if (urlParams.get("token") === undefined || urlParams.get("token").length < 700) {
+	if (urlParams.get("token") == undefined || urlParams.get("token") == null || urlParams.get("token").length < 700) {
 		// Invalid Code
 		response.writeHead(403,{'Content-Type': 'text/html'});
 		response.write("TokenInvalid");
